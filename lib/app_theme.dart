@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primarySwatch: Colors.blue,
   scaffoldBackgroundColor: Colors.grey[100],
+  primarySwatch: Colors.blue,
+  textTheme: GoogleFonts.poppinsTextTheme(), // ✅ Apply custom font
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.blue,
     foregroundColor: Colors.white,
@@ -20,8 +22,11 @@ final ThemeData lightTheme = ThemeData(
 
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primarySwatch: Colors.blue,
   scaffoldBackgroundColor: Colors.grey[900],
+  primarySwatch: Colors.blue,
+  textTheme: GoogleFonts.poppinsTextTheme(
+    ThemeData.dark().textTheme,
+  ), // ✅ Apply dark font theme
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.black,
     foregroundColor: Colors.white,

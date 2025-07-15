@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../models/product.dart';
 import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
+import '../screens/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -23,20 +24,26 @@ class ProductCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          // Could navigate to product detail screen (optional)
+          // Optional: navigate to product detail screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ProductDetailScreen(product: product),
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image with favorite icon
+              // Product image with favorite icon
               Stack(
                 children: [
                   Center(
                     child: Image.network(
                       product.image,
-                      height: 110,
+                      height: 100,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -56,7 +63,7 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 8),
+              const SizedBox(height: 6),
               Text(
                 product.title,
                 maxLines: 2,
@@ -86,7 +93,7 @@ class ProductCard extends StatelessWidget {
                 direction: Axis.horizontal,
               ),
 
-              const Spacer(),
+              const SizedBox(height: 8), // fixed spacing
               ElevatedButton.icon(
                 onPressed: isInCart
                     ? null
