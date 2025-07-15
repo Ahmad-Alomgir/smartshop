@@ -1,59 +1,108 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/auth_provider.dart';
 import '../providers/theme_provider.dart';
 
-Drawer buildAppDrawer(BuildContext context) {
-  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+Widget buildAppDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
 
   return Drawer(
-    child: ListView(
-      padding: EdgeInsets.zero,
+    child: Column(
       children: [
-        const DrawerHeader(
-          decoration: BoxDecoration(color: Colors.blue),
-          child: Text(
-            'Smart Shop',
-            style: TextStyle(color: Colors.white, fontSize: 24),
+        UserAccountsDrawerHeader(
+          accountName: const Text("Alan Wake"),
+          accountEmail: const Text("smartshop@app.com"),
+          currentAccountPicture: const CircleAvatar(
+            backgroundImage: AssetImage('assets/Smartshop.png'),
+          ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
-        ListTile(
-          leading: const Icon(Icons.home),
-          title: const Text('Home'),
-          onTap: () => Navigator.pushReplacementNamed(context, '/home'),
+        buildDrawerItem(
+          context,
+          icon: Icons.home,
+          label: 'Home',
+          routeName: '/home',
         ),
-        ListTile(
-          leading: const Icon(Icons.shopping_cart),
-          title: const Text('Cart'),
-          onTap: () => Navigator.pushReplacementNamed(context, '/cart'),
+        buildDrawerItem(
+          context,
+          icon: Icons.favorite,
+          label: 'Favorites',
+          routeName: '/favorites',
         ),
-        ListTile(
-          leading: const Icon(Icons.favorite),
-          title: const Text('Favorites'),
-          onTap: () => Navigator.pushReplacementNamed(context, '/favorites'),
+        buildDrawerItem(
+          context,
+          icon: Icons.shopping_cart,
+          label: 'Cart',
+          routeName: '/cart',
         ),
-        ListTile(
-          leading: const Icon(Icons.person),
-          title: const Text('Profile'),
-          onTap: () => Navigator.pushReplacementNamed(context, '/profile'),
+        buildDrawerItem(
+          context,
+          icon: Icons.person,
+          label: 'Profile',
+          routeName: '/profile',
         ),
         const Divider(),
         SwitchListTile(
           title: const Text('Dark Mode'),
+          secondary: Icon(themeProvider.isDark ? Icons.dark_mode : Icons.light_mode),
           value: themeProvider.isDark,
-          onChanged: (value) {
-            themeProvider.toggleTheme();
-          },
-          secondary: const Icon(Icons.brightness_6),
+          onChanged: (_) => themeProvider.toggleTheme(),
         ),
+        const Spacer(),
         ListTile(
           leading: const Icon(Icons.logout),
-          title: const Text('Logout'),
-          onTap: () {
-            authProvider.logout();
-            Navigator.pushReplacementNamed(context, '/login');
+          title: const Text("Logout"),
+          onTap: () => _confirmLogout(context),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildDrawerItem(BuildContext context,
+    {required IconData icon,
+      required String label,
+      required String routeName}) {
+  final isSelected = ModalRoute.of(context)?.settings.name == routeName;
+
+  return ListTile(
+    leading: Icon(icon, color: isSelected ? Theme.of(context).colorScheme.primary : null),
+    title: Text(
+      label,
+      style: TextStyle(
+        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        color: isSelected ? Theme.of(context).colorScheme.primary : null,
+      ),
+    ),
+    selected: isSelected,
+    onTap: () {
+      Navigator.pop(context);
+      if (!isSelected) {
+        Navigator.pushReplacementNamed(context, routeName);
+      }
+    },
+  );
+}
+
+void _confirmLogout(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Logout'),
+      content: const Text('Are you sure you want to logout?'),
+      actions: [
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        ElevatedButton(
+          child: const Text('Logout'),
+          onPressed: () async {
+            final authProvider = Provider.of<AuthProvider>(context, listen: false);
+            await authProvider.logout();
+            Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
           },
         ),
       ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../models/product.dart';
 import '../providers/cart_provider.dart';
@@ -8,6 +7,7 @@ import '../providers/product_provider.dart';
 import '../providers/theme_provider.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/product_card.dart';
+import '../widgets/shimmer_product_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,37 +17,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String? selectedSort;
-  String? selectedCategory = "All";
-
-  final List<String> sortOptions = [
-    "Price: Low to High",
-    "Price: High to Low",
-    "Rating",
-  ];
-
-  final List<String> categories = ["All"];
-
   @override
   void initState() {
     super.initState();
-    final productProvider = Provider.of<ProductProvider>(context, listen: false);
-    productProvider.loadProducts();
-    _loadCategories();
-  }
-
-  void _loadCategories() async {
-    final productProvider = Provider.of<ProductProvider>(context, listen: false);
-    try {
-      final fetchedCategories = await productProvider.loadCategories();
-      setState(() {
-        categories.addAll(fetchedCategories);
-      });
-    } catch (_) {}
+    Provider.of<ProductProvider>(context, listen: false).init();
   }
 
   Future<void> _refreshProducts() async {
-    await Provider.of<ProductProvider>(context, listen: false).loadProducts();
+    await Provider.of<ProductProvider>(context, listen: false).fetchProducts();
   }
 
   @override
@@ -60,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Smart Shop'),
         actions: [
+          // Cart Icon with badge
           IconButton(
             icon: Stack(
               children: [
@@ -82,54 +60,68 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, '/cart');
             },
           ),
+
+          // Sorting menu
           PopupMenuButton<String>(
             icon: const Icon(Icons.sort),
             onSelected: (value) {
-              setState(() {
-                selectedSort = value;
-              });
-              productProvider.sortProducts(value);
+              if (value == "Price: Low to High") {
+                productProvider.setSortOption(SortOption.priceLowToHigh);
+              } else if (value == "Price: High to Low") {
+                productProvider.setSortOption(SortOption.priceHighToLow);
+              } else if (value == "Rating") {
+                productProvider.setSortOption(SortOption.ratingHighToLow);
+              }
             },
-            itemBuilder: (context) {
-              return sortOptions
-                  .map((e) => PopupMenuItem(value: e, child: Text(e)))
-                  .toList();
-            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(value: "Price: Low to High", child: Text("Price: Low to High")),
+              const PopupMenuItem(value: "Price: High to Low", child: Text("Price: High to Low")),
+              const PopupMenuItem(value: "Rating", child: Text("Rating")),
+            ],
           ),
         ],
       ),
       drawer: buildAppDrawer(context),
       body: Column(
         children: [
-          // Category selector
+          // Category Chips
           SizedBox(
             height: 50,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-              itemCount: categories.length,
+              itemCount: productProvider.categories.length,
               itemBuilder: (context, index) {
-                final category = categories[index];
-                final selected = category == productProvider.selectedCategory || (productProvider.selectedCategory == null && category == "All");
+                final category = productProvider.categories[index];
+                final isSelected = category == productProvider.selectedCategory;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: ChoiceChip(
                     label: Text(category),
-                    selected: selected,
+                    selected: isSelected,
                     onSelected: (_) {
-                      setState(() {
-                        selectedCategory = category;
-                      });
-                      productProvider.setCategory(category == "All" ? null : category);
+                      productProvider.filterByCategory(category);
                     },
                   ),
                 );
               },
             ),
           ),
+
+          // Product List or Shimmer Loading
           Expanded(
             child: productProvider.isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? GridView.builder(
+              padding: const EdgeInsets.all(8),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                childAspectRatio: 0.7,
+              ),
+              itemCount: 6, // Number of shimmer placeholders
+              itemBuilder: (context, index) => const ShimmerProductCard(),
+            )
                 : RefreshIndicator(
               onRefresh: _refreshProducts,
               child: productProvider.products.isEmpty
