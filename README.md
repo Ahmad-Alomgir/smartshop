@@ -104,15 +104,7 @@ The app connects with the [FakeStore API](https://fakestoreapi.com) to fetch pro
    ```bash
     flutter run
 
-4. Project Structure
-   lib/
-├── assets/              # Images, logos, icons
-├── models/              # Data classes (Product, User, etc.)
-├── providers/           # State management (Auth, Product, Cart, Theme)
-├── screens/             # UI Screens (Login, Home, Cart, Profile)
-├── services/            # API service calls
-├── widgets/             # Reusable UI components (ProductCard, Drawer, etc.)
-main.dart               # App entry point and routing
+
 
 
 
