@@ -95,3 +95,24 @@ The app connects with the [FakeStore API](https://fakestoreapi.com) to fetch pro
    ```bash
    git clone https://github.com/yourusername/smart-shop-flutter.git
    cd smart-shop-flutter
+
+2. Install Dependecies:
+     ```bash
+     flutter pub get
+
+3. Run the app
+   ```bash
+    flutter run
+
+4. Project Structure
+   lib/
+├── assets/              # Images, logos, icons
+├── models/              # Data classes (Product, User, etc.)
+├── providers/           # State management (Auth, Product, Cart, Theme)
+├── screens/             # UI Screens (Login, Home, Cart, Profile)
+├── services/            # API service calls
+├── widgets/             # Reusable UI components (ProductCard, Drawer, etc.)
+main.dart               # App entry point and routing
+
+
+
