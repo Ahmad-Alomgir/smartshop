@@ -7,7 +7,7 @@ final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.blue,
   textTheme: GoogleFonts.poppinsTextTheme(), // ✅ Apply custom font
   appBarTheme: const AppBarTheme(
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.teal,
     foregroundColor: Colors.white,
     elevation: 0,
   ),
@@ -26,7 +26,8 @@ final ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.blue,
   textTheme: GoogleFonts.poppinsTextTheme(
     ThemeData.dark().textTheme,
-  ), // ✅ Apply dark font theme
+  ),
+
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.black,
     foregroundColor: Colors.white,

@@ -11,12 +11,12 @@ Widget buildAppDrawer(BuildContext context) {
       children: [
         UserAccountsDrawerHeader(
           accountName: const Text("Alan Wake"),
-          accountEmail: const Text("smartshop@app.com"),
+          accountEmail: const Text("smartshop@gmail.com"),
           currentAccountPicture: const CircleAvatar(
             backgroundImage: AssetImage('assets/Smartshop.png'),
           ),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
+            color:Colors.teal,
           ),
         ),
         buildDrawerItem(

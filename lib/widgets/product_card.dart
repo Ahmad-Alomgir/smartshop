@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
 
     final isFavorite = productProvider.favoriteIds.contains(product.id);
-    final isInCart = cartProvider.isInCart(product.id);
+    // final isInCart = cartProvider.isInCart(product.id);
 
     return Card(
       elevation: 2,
@@ -103,28 +103,21 @@ class ProductCard extends StatelessWidget {
                 width: double.infinity,
                 height: 36,
                 child: ElevatedButton.icon(
-                  onPressed: isInCart
-                      ? null
-                      : () {
+                  onPressed: () {
                     cartProvider.addToCart(product);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Added to cart")),
                     );
                   },
-                  icon: Icon(
-                    isInCart ? Icons.check : Icons.add_shopping_cart,
-                    size: 16,
-                  ),
-                  label: Text(
-                    isInCart ? "Added" : "Add to Cart",
-                    style: const TextStyle(fontSize: 13),
-                  ),
+                  icon: const Icon(Icons.add_shopping_cart, size: 16),
+                  label: const Text("Add to Cart", style: TextStyle(fontSize: 13)),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
+                    backgroundColor: Colors.teal,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                   ),
                 ),
+
               ),
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter/services.dart';
 import 'app_theme.dart';
 import 'providers/auth_provider.dart';
 import 'providers/cart_provider.dart';
@@ -16,9 +16,22 @@ import 'screens/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   final prefs = await SharedPreferences.getInstance();
   final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   final isDarkMode = prefs.getBool('isDarkMode') ?? false;
+
+  // Set transparent status bar with dark icons (for light background)
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light, // iOS status bar
+    ),
+  );
+
+  // Optional: Allow background to extend into status bar
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   runApp(
     MultiProvider(
@@ -32,6 +45,7 @@ void main() async {
     ),
   );
 }
+
 
 class SmartShopApp extends StatelessWidget {
   const SmartShopApp({super.key});

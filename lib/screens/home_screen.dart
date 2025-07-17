@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../models/product.dart';
 import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
-import '../providers/theme_provider.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/product_card.dart';
 import '../widgets/shimmer_product_card.dart';
@@ -40,21 +37,40 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: Stack(
               children: [
-                const Icon(Icons.shopping_cart),
+                IconButton(
+                  icon: const Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                ),
                 if (cartProvider.itemCount > 0)
                   Positioned(
-                    right: 0,
-                    child: CircleAvatar(
-                      radius: 8,
-                      backgroundColor: Colors.red,
+                    right: 6,
+                    top: 6,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 20,
+                        minHeight: 20,
+                      ),
                       child: Text(
                         cartProvider.itemCount.toString(),
-                        style: const TextStyle(fontSize: 12, color: Colors.white),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
               ],
             ),
+
             onPressed: () {
               Navigator.pushNamed(context, '/cart');
             },
