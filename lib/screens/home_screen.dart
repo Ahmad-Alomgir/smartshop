@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
-    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -73,76 +72,91 @@ class _HomeScreenState extends State<HomeScreen> {
                 productProvider.setSortOption(SortOption.ratingHighToLow);
               }
             },
-            itemBuilder: (context) => [
-              const PopupMenuItem(value: "Price: Low to High", child: Text("Price: Low to High")),
-              const PopupMenuItem(value: "Price: High to Low", child: Text("Price: High to Low")),
-              const PopupMenuItem(value: "Rating", child: Text("Rating")),
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: "Price: Low to High", child: Text("Price: Low to High")),
+              PopupMenuItem(value: "Price: High to Low", child: Text("Price: High to Low")),
+              PopupMenuItem(value: "Rating", child: Text("Rating")),
             ],
           ),
         ],
       ),
       drawer: buildAppDrawer(context),
-      body: Column(
-        children: [
-          // Category Chips
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-              itemCount: productProvider.categories.length,
-              itemBuilder: (context, index) {
-                final category = productProvider.categories[index];
-                final isSelected = category == productProvider.selectedCategory;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: ChoiceChip(
-                    label: Text(category),
-                    selected: isSelected,
-                    onSelected: (_) {
-                      productProvider.filterByCategory(category);
+
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: _refreshProducts,
+          child: CustomScrollView(
+            slivers: [
+              // Category Chips
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    itemCount: productProvider.categories.length,
+                    itemBuilder: (context, index) {
+                      final category = productProvider.categories[index];
+                      final isSelected = category == productProvider.selectedCategory;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: ChoiceChip(
+                          label: Text(category),
+                          selected: isSelected,
+                          onSelected: (_) {
+                            productProvider.filterByCategory(category);
+                          },
+                        ),
+                      );
                     },
                   ),
-                );
-              },
-            ),
-          ),
-
-          // Product List or Shimmer Loading
-          Expanded(
-            child: productProvider.isLoading
-                ? GridView.builder(
-              padding: const EdgeInsets.all(8),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: 6, // Number of shimmer placeholders
-              itemBuilder: (context, index) => const ShimmerProductCard(),
-            )
-                : RefreshIndicator(
-              onRefresh: _refreshProducts,
-              child: productProvider.products.isEmpty
-                  ? const Center(child: Text("No products found"))
-                  : GridView.builder(
-                padding: const EdgeInsets.all(8),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  childAspectRatio: 0.7,
                 ),
-                itemCount: productProvider.products.length,
-                itemBuilder: (context, index) {
-                  final product = productProvider.products[index];
-                  return ProductCard(product: product);
-                },
               ),
-            ),
+
+              // Loading shimmer
+              if (productProvider.isLoading)
+                SliverPadding(
+                  padding: const EdgeInsets.all(8),
+                  sliver: SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 0.7,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      childCount: 6,
+                          (context, index) => const ShimmerProductCard(),
+                    ),
+                  ),
+                )
+              // Show products
+              else if (productProvider.products.isEmpty)
+                const SliverFillRemaining(
+                  child: Center(child: Text("No products found")),
+                )
+              else
+                SliverPadding(
+                  padding: const EdgeInsets.all(8),
+                  sliver: SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 0.7,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                        final product = productProvider.products[index];
+                        return ProductCard(product: product);
+                      },
+                      childCount: productProvider.products.length,
+                    ),
+                  ),
+                ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

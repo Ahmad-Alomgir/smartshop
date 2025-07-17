@@ -25,7 +25,23 @@ class Product {
       description: json['description'],
       category: json['category'],
       image: json['image'],
-      rating: (json['rating']['rate'] as num).toDouble(),
+      rating: json['rating'] is Map
+          ? (json['rating']['rate'] as num).toDouble()
+          : (json['rating'] as num).toDouble(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'description': description,
+      'category': category,
+      'image': image,
+      'rating': {
+        'rate': rating,
+      },
+    };
   }
 }
