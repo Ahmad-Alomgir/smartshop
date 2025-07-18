@@ -17,7 +17,6 @@ class ProductProvider extends ChangeNotifier {
   String _selectedCategory = 'All';
   SortOption _sortOption = SortOption.none;
 
-  // Set isLoading to true initially to show shimmer immediately
   bool _isLoading = true;
 
   List<Product> get products => _products;
@@ -27,7 +26,6 @@ class ProductProvider extends ChangeNotifier {
   String get selectedCategory => _selectedCategory;
   SortOption get sortOption => _sortOption;
 
-  // Init on app startup
   Future<void> init() async {
     await fetchCategories();
     await _loadFavorites();
@@ -39,7 +37,6 @@ class ProductProvider extends ChangeNotifier {
 
   // Fetch products (all or by category)
   Future<void> fetchProducts() async {
-    // Set loading true before fetch and notify immediately
     _isLoading = true;
     notifyListeners();
 

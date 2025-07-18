@@ -21,7 +21,6 @@ void main() async {
   final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   final isDarkMode = prefs.getBool('isDarkMode') ?? false;
 
-  // Set transparent status bar with dark icons (for light background)
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -30,7 +29,6 @@ void main() async {
     ),
   );
 
-  // Optional: Allow background to extend into status bar
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   runApp(

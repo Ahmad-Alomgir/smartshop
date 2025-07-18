@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
 
     final isFavorite = productProvider.favoriteIds.contains(product.id);
-    // final isInCart = cartProvider.isInCart(product.id);
+
 
     return Card(
       elevation: 2,

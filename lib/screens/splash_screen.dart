@@ -77,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
                 const SizedBox(height: 20),
 
-                // ✅ Lottie Animation
+                //  Lottie Animation
                 SizedBox(
                   width: 150,
                   height: 150,

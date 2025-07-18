@@ -62,7 +62,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
 
-            // Account Settings (Future Expansion)
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Account Settings'),

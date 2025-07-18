@@ -22,7 +22,7 @@ Widget buildAppDrawer(BuildContext context) {
         buildDrawerItem(
           context,
           icon: Icons.home,
-          label: 'Home',
+          label: "Home",
           routeName: '/home',
         ),
         buildDrawerItem(
@@ -68,12 +68,12 @@ Widget buildDrawerItem(BuildContext context,
   final isSelected = ModalRoute.of(context)?.settings.name == routeName;
 
   return ListTile(
-    leading: Icon(icon, color: isSelected ? Theme.of(context).colorScheme.primary : null),
+    leading: Icon(icon, color: isSelected ?  Colors.teal : null),
     title: Text(
       label,
       style: TextStyle(
         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-        color: isSelected ? Theme.of(context).colorScheme.primary : null,
+        color: isSelected ?  Colors.teal : null,
       ),
     ),
     selected: isSelected,

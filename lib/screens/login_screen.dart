@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 16),
                         const Text(
-                          'Use test@shop.com and password 1234 to login',
+                          'Use smartshop@gmail.com and password 2025 to login',
                           style: TextStyle(color: Colors.grey, fontSize: 13),
                         ),
                       ],
