@@ -102,19 +102,14 @@ flutter build apk --release
 ## 📁 Project Structure
 
 Here is the basic structure of the project directory:
-
-\`\`\`
-
 lib/
-├── main.dart         \# App entry point
-├── app\_theme.dart    \# Theme configuration
-├── models/           \# Data models (e.g., Product)
-├── providers/        \# State management (e.g., CartProvider, ThemeProvider)
-├── screens/          \# UI for each page (e.g., HomeScreen, LoginScreen)
-├── widgets/          \# Reusable UI components
-└── services/         \# API handling and other services
-
-\`\`\`
+├── main.dart         # App entry point
+├── app_theme.dart    # Theme configuration
+├── models/           # Data models (e.g., Product)
+├── providers/        # State management (e.g., CartProvider, ThemeProvider)
+├── screens/          # UI for each page (e.g., HomeScreen, LoginScreen)
+├── widgets/          # Reusable UI components
+└── services/         # API handling and other services
 
 ---
 
