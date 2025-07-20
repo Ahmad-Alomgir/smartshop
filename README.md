@@ -155,7 +155,7 @@ Contributions are welcome! If you have suggestions for improving the app, please
 
 ### 📲 Download APK
 
-1.  **[⬇️ Download the latest APK here]([https://github.com/Ahmad-Alomgir/smartshop/releases/](https://github.com/Ahmad-Alomgir/smartshop/tree/master/releases)**
+1.  **[⬇️ Download the latest APK here](https://github.com/Ahmad-Alomgir/smartshop/tree/master/releases)**
 2.  After downloading, you may need to enable "Install from unknown sources" in your Android settings.
 3.  Open the downloaded `.apk` file and tap **Install**.
 
