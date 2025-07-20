@@ -1,178 +1,92 @@
-# Smart Shop - Flutter E-commerce App
+# 🛍️ Smart Shop - Mini E-commerce Flutter App
 
-## Table of Contents
-
-* [Overview](#overview)
-* [Features](#features)
-* [Screenshots](#screenshots)
-* [Getting Started](#getting-started)
-
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Project Structure](#project-structure)
-* [Technologies Used](#technologies-used)
-* [API](#api)
-* [How to Use](#how-to-use)
-* [Known Issues](#known-issues)
-* [Contributing](#contributing)
-* [License](#license)
+Smart Shop is a beautifully designed mini e-commerce application built using Flutter. It fetches product data from the FakeStore API and includes essential shopping features such as login, cart, favorites, category filtering, and theme switching.
 
 ---
 
-## Overview
+## 📋 Table of Contents
 
-Smart Shop is a mini e-commerce Flutter app that demonstrates state management with Provider, persistent storage via SharedPreferences, dynamic theming, and RESTful API integration. Browse products, add to cart, favorite items, and toggle between light and dark modes in a seamless UI experience.
-
----
-
-## Features
-
-* **Login/Register:** Form validation, dummy login with SharedPreferences, splash screen navigation.
-* **Home Page:** Fetch and display products from FakeStore API with images, names, prices, ratings.
-* **Category Filter:** Dynamic categories (`All`, `men's clothing`, `women's clothing`, `electronics`, `jewelery`) for extra credit.
-* **Sorting & Refresh:** Sort by price/rating, pull-to-refresh via RefreshIndicator.
-* **Favorites:** Mark products as favorite, view favorites list, persistence via SharedPreferences.
-* **Cart Page:** Add/remove products, manage quantities, display total price, persistent cart state.
-* **Badge Notification:** Cart icon badge reflecting number of items.
-* **Theme Toggling:** Light/Dark modes with Drawer switch and persistence.
-* **Drawer Navigation:** Routes to Home, Cart, Favorites, Profile, and Logout.
-* **Logout:** Clears login data and redirects to Login screen.
-* **Custom Animations:** Animated AppBar, splash screen fade, hero transitions.
+- [Overview](#overview)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Technologies Used](#technologies-used)
+- [API](#api)
+- [How to Use](#how-to-use)
+- [Known Issues](#known-issues)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits](#credits)
 
 ---
 
-## Screenshots
+## 📖 Overview
 
-<!-- Add your screenshots in the `screenshots/` folder and update paths accordingly -->
-
-|                Home (Light)               |               Home (Dark)               |
-| :---------------------------------------: | :-------------------------------------: |
-| ![Home Light](screenshots/home_light.png) | ![Home Dark](screenshots/home_dark.png) |
-
-|              Category Filter              |           Cart Page           |
-| :---------------------------------------: | :---------------------------: |
-| ![Categories](screenshots/categories.png) | ![Cart](screenshots/cart.png) |
+Smart Shop is a Flutter-based mobile shopping app that allows users to browse products, add them to their cart, mark favorites, and toggle between dark and light themes. It demonstrates essential mobile app development concepts using **Provider**, **SharedPreferences**, **REST APIs**, and more.
 
 ---
 
-## Getting Started
+## ✨ Features
 
-### Prerequisites
-
-* Flutter SDK (>=2.0)
-* Android Studio or VS Code
-* Android/iOS device or emulator
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   https://github.com/Ahmad-Alomgir/smartshop.git
-   cd smartshop
-   ```
-2. Install dependencies:
-
-   ```bash
-   flutter pub get
-   ```
-3. Run the app:
-
-   ```bash
-   flutter run
-   ```
-4. Build release APK:
-
-   ```bash
-   flutter build apk --release
-   ```
+- 🔐 Login screen with dummy credentials and validation
+- 🏠 Product listing with name, price, rating, and favorite toggle
+- 💖 Favorites screen with persistent favorite items
+- 🛒 Cart page with total price and item count badge
+- 🎨 Theme toggling (Dark/Light mode)
+- 🔄 `RefreshIndicator` to reload product list
+- 📂 Category filter using FakeStore API
+- 🔁 Drawer navigation with routes to all screens
+- 🚪 Logout with confirmation and state clearing
 
 ---
 
-## Project Structure
+## 📸 Screenshots
 
-```
-lib/
-├── main.dart           # App entry point
-├── app_theme.dart      # Light and dark theme definitions
-├── constants.dart      # API base URL and other constants
-├── models/             # Data models
-│   ├── product.dart
-│   └── cart_item.dart
-├── providers/          # State management
-│   ├── auth_provider.dart
-│   ├── cart_provider.dart
-│   ├── product_provider.dart
-│   └── theme_provider.dart
-├── screens/            # UI screens
-│   ├── splash_screen.dart
-│   ├── login_screen.dart
-│   ├── home_screen.dart
-│   ├── cart_screen.dart
-│   ├── favorites_screen.dart
-│   ├── profile_screen.dart
-│   └── product_detail_screen.dart
-├── services/           # API service
-│   └── api_service.dart
-└── widgets/            # Reusable widgets
-    ├── product_card.dart
-    ├── drawer_widget.dart
-    └── shimmer_product_card.dart
-```
+> **Note:** Replace these links with your own hosted or local image paths.
+
+| Home Screen - Dark Theme | Category Filters | Favorites & Cart |
+| :----------------------: | :--------------: | :--------------: |
+| `<img width="381" height="878" alt="home_screen_dark" src="https://github.com/user-attachments/assets/1c7d41fa-10fa-4e86-8f21-d79c3dc38aae" />
+` | `<img width="378" height="848" alt="home_screen" src="https://github.com/user-attachments/assets/bdd4f8aa-165b-4221-b3df-4b74b9fc418a" />
+` | `<img width="393" height="847" alt="cart_light" src="https://github.com/user-attachments/assets/7b8d90d1-24a5-4048-88d5-d0fa3eb7fe78" />
+` |
+
+| Login Screen | Profile Page | Cart Page |
+| :----------: | :----------: | :-------: |
+| `![](assets/screenshots/screen4.png)` | `![](assets/screenshots/screen5.png)` | `![](assets/screenshots/screen6.png)` |
 
 ---
 
-## Technologies Used
+## 🚀 Getting Started
 
-* Flutter & Dart
-* Provider for state management
-* SharedPreferences for local persistence
-* HTTP package for REST API calls
-* Flutter Rating Bar
+### 📦 Prerequisites
 
----
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- Android Studio or VS Code
+- An emulator or a physical Android device
 
-## API
+### ⚙️ Installation
 
-This app uses the [FakeStore API](https://fakestoreapi.com):
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-github-username/smart-shop.git](https://github.com/your-github-username/smart-shop.git)
+    ```
+2.  **Navigate to the project directory:**
+    ```bash
+    cd smart-shop
+    ```
+3.  **Install dependencies:**
+    ```bash
+    flutter pub get
+    ```
+4.  **Run the app:**
+    ```bash
+    flutter run
+    ```
 
-* **Get All Products:** `GET https://fakestoreapi.com/products`
-* **Get Categories:** `GET https://fakestoreapi.com/products/categories`
-* **Get Products by Category:** `GET https://fakestoreapi.com/products/category/{category}`
-
----
-
-## How to Use
-
-1. **Login:** Use `test@shop.com` / `1234`.
-2. **Browse:** Filter by category, sort products.
-3. **Favorites:** Tap the heart icon to favorite.
-4. **Cart:** Add items, adjust quantities, view total.
-5. **Theme:** Toggle dark/light in Drawer.
-6. **Logout:** Use the Logout button in the Drawer.
-
----
-
-## Known Issues
-
-* No backend authentication (dummy login only).
-* No payment integration (checkout is mocked).
-* Some images may load slowly on poor network.
-
----
-
-## Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature-name`.
-3. Commit your changes: `git commit -am 'Add feature'`.
-4. Push to branch: `git push origin feature-name`.
-5. Open a Pull Request.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+To build a release APK for Android:
+```bash
+flutter build apk --release
