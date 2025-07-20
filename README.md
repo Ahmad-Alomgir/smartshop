@@ -44,7 +44,6 @@ Smart Shop is a Flutter-based mobile shopping app that allows users to browse pr
 
 ## 📸 Screenshots
 
-> **Note:** Replace these links with your own hosted or local image paths.
 
 | Home Screen - Dark Theme | Category and sorting | Cart page|
 | :----------------------: | :--------------: | :--------------: |
