@@ -92,9 +92,11 @@ To get a local copy up and running, follow these simple steps.
 ### 📦 Build a Release APK
 
 To create a release version of the application for Android, run the following command:
-```bash
-flutter build apk --release
----
+  
+  ```bash
+          flutter build apk --release
+   ```  
+
 
 ## 🧰 Technologies Used
 
