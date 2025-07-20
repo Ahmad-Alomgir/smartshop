@@ -161,8 +161,6 @@ Contributions are welcome! If you have suggestions for improving the app, please
 
 ---
 
----
-
 ## 🙌 Credits
 
 -   Developed by **\[Sheikh Abu Ahmad Alomgir]**
