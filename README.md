@@ -17,7 +17,7 @@ Smart Shop is a beautifully designed mini e-commerce application built using Flu
 - [How to Use](#how-to-use)
 - [Known Issues](#known-issues)
 - [Contributing](#contributing)
-- [License](#license)
+- [Download App](#download)
 - [Credits](#credits)
 
 ---
@@ -153,9 +153,13 @@ Contributions are welcome! If you have suggestions for improving the app, please
 
 ---
 
-## 📝 License
+### 📲 Download APK
 
-This project is distributed under the MIT License. See the `LICENSE` file for more information.
+1.  **[⬇️ Download the latest APK here](https://github.com/Ahmad-Alomgir/smartshop/releases/app-release.apk)**
+2.  After downloading, you may need to enable "Install from unknown sources" in your Android settings.
+3.  Open the downloaded `.apk` file and tap **Install**.
+
+---
 
 ---
 
