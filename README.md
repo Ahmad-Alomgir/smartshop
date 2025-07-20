@@ -12,7 +12,6 @@ Smart Shop is a beautifully designed mini e-commerce application built using Flu
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Project Structure](#project-structure)
 - [Technologies Used](#technologies-used)
 - [API](#api)
 - [How to Use](#how-to-use)
